@@ -2,25 +2,25 @@
  * Created by Hicham B.I.
  */
 
-package test;
+package com.resources;
 
+import com.services.User;
+import com.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("user")
-public class UserController {
+public class UserResource {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/all")
     public Collection<User> getUsers() {
-        return new ArrayList<User>(
-                Arrays.asList(
-                        new User(1, "Hei"),
-                        new User(2, "BK-201")
-                ));
+        return userService.getUsers();
     }
 }

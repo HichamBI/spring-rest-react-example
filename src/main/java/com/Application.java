@@ -2,7 +2,7 @@
  * Created by Hicham B.I.
  */
 
-package test;
+package com;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
