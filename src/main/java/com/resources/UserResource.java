@@ -4,7 +4,7 @@
 
 package com.resources;
 
-import com.services.User;
+import com.model.User;
 import com.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

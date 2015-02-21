@@ -4,6 +4,9 @@
 
 package com.services;
 
+import com.dao.UserDao;
+import com.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,11 +16,10 @@ import java.util.Collection;
 @Service
 public class UserService {
 
+    @Autowired
+    UserDao userDao;
+
     public Collection<User> getUsers() {
-        return new ArrayList<User>(
-                Arrays.asList(
-                        new User(1, "Hei"),
-                        new User(2, "BK-201")
-                ));
+        return userDao.findAll();
     }
 }

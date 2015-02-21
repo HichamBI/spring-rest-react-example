@@ -2,7 +2,7 @@
  * Created by Hicham B.I.
  */
 
-package com.services;
+package com.model;
 
 public class User {
     private final long id;
