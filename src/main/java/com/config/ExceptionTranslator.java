@@ -11,7 +11,7 @@ import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.jdbc.support.SQLStateSQLExceptionTranslator;
 
-public class JOOQToSpringExceptionTransformer extends DefaultExecuteListener {
+public class ExceptionTranslator extends DefaultExecuteListener {
 
     @Override
     public void exception(ExecuteContext ctx) {

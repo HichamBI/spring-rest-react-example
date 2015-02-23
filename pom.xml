@@ -11,6 +11,7 @@
     <properties>
         <skip.db.creation>false</skip.db.creation>
         <jooq.generator.db.dialect>org.jooq.util.h2.H2Database</jooq.generator.db.dialect>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <parent>
@@ -25,24 +26,8 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>3.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.jolbox</groupId>
-            <artifactId>bonecp</artifactId>
-            <version>0.8.0.RELEASE</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
         <dependency>
@@ -50,37 +35,10 @@
             <artifactId>jooq</artifactId>
             <version>3.5.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-meta</artifactId>
-            <version>3.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-codegen</artifactId>
-            <version>3.5.2</version>
-        </dependency>
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
-            <version>2.0</version>
-        </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.185</version>
-        </dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.10</version>
         </dependency>
 
         <dependency>
@@ -90,22 +48,14 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12-beta-2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>1.6.1</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>4.1.1.RELEASE</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -155,27 +105,21 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <!-- Configure the database connection -->
-                            <driver>${db.driver}</driver>
-                            <url>${db.url}</url>
-                            <username>${db.username}</username>
-                            <password>${db.password}</password>
+							<driver>${spring.datasource.driverClassName}</driver>
+							<url>${spring.datasource.url}</url>
+							<username>${spring.datasource.username}</username>
+							<password>${spring.datasource.password}</password>
 
-                            <!-- Ensure that our changes are committed automatically -->
                             <autocommit>true</autocommit>
-                            <!-- Configure the location of the invoked SQL script -->
                             <srcFiles>
-                                <srcFile>src/main/resources/schema.sql</srcFile>
+								<srcFile>src/main/resources/schema.sql</srcFile>
+								<srcFile>src/main/resources/data.sql</srcFile>
                             </srcFiles>
                         </configuration>
                     </execution>
                 </executions>
 
                 <dependencies>
-                    <!--
-                        Because we use the H2 database, we have to add it as the dependency
-                        of this plugin.
-                    -->
                     <dependency>
                         <groupId>com.h2database</groupId>
                         <artifactId>h2</artifactId>
@@ -214,10 +158,10 @@
                 <configuration>
                     <!-- Configure the database connection -->
                     <jdbc>
-                        <driver>${db.driver}</driver>
-                        <url>${db.url}</url>
-                        <user>${db.username}</user>
-                        <password>${db.password}</password>
+                        <driver>${spring.datasource.driverClassName}</driver>
+                        <url>${spring.datasource.url}</url>
+                        <user>${spring.datasource.username}</user>
+                        <password>${spring.datasource.password}</password>
                     </jdbc>
 
                     <generator>
@@ -239,6 +183,14 @@
                             <directory>target/generated-sources/db</directory>
                         </target>
                     </generator>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>

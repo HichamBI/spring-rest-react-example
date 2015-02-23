@@ -14,6 +14,7 @@ import org.jooq.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Collection;
 
 @Repository
@@ -35,12 +36,7 @@ public class UserDao {
 
     @Transactional(readOnly = true)
     public Collection<User> findAll() {
-        Result<TechUserRecord> fetch = db.selectFrom(Tables.TECH_USER).fetch();
-        return Collections2.transform(fetch, new Function<TechUserRecord, User>() {
-            @Override
-            public User apply(TechUserRecord techUserRecord) {
-                return new User(techUserRecord.getUsrId(), techUserRecord.getUserName());
-            }
-        });
+        Result<TechUserRecord> userRecords = db.selectFrom(Tables.TECH_USER).fetch();
+        return userRecords.map(ur -> new User(ur.getUsrId(), ur.getUserName()));
     }
 }
