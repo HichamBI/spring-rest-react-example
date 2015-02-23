@@ -5,6 +5,7 @@
 package com.dao;
 
 import com.config.PersistenceContext;
+import com.config.PersistenceContextTest;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = PersistenceContext.class)
+@ContextConfiguration(classes = PersistenceContextTest.class)
 public class UserDaoTest{
 
     @Autowired
