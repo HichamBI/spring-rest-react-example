@@ -4,8 +4,6 @@
 
 package com.dao;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
 import com.hei.db.Tables;
 import com.hei.db.tables.records.UserRecord;
 import com.model.User;
@@ -36,12 +34,8 @@ public class UserDao {
 
     @Transactional(readOnly = true)
     public Collection<User> findAll() {
-        Result<UserRecord> fetch = db.selectFrom(Tables.USER).fetch();
-        return Collections2.transform(fetch, new Function<UserRecord, User>() {
-            @Override
-            public User apply(UserRecord techUserRecord) {
-                return new User(techUserRecord.getUserId(), techUserRecord.getUserName());
-            }
-        });
+        Result<UserRecord> userRecords = db.selectFrom(Tables.USER).fetch();
+
+        return userRecords.map((userRecord) -> new User(userRecord.getUserId(), userRecord.getUserName()));
     }
 }
