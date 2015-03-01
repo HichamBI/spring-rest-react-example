@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <user user_id="1" user_name="Luffy"/>
+    <user user_id="2" user_name="Naruto"/>
+    <user user_id="3" user_name="Ichigo"/>
+</dataset>
